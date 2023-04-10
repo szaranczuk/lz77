@@ -6,7 +6,7 @@
 #ifndef __EXTERN
 
 int* lcp_array(int** c, int* p,int n);
-int lcp(int** c, int* p, int a, int b, int n);
+int lcp(int** c, int a, int b, int n);
 
 #endif
 #endif
