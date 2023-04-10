@@ -24,7 +24,7 @@ int max(int a, int b)
 
 //Example is shown in suffix_array_example.c file
 
-int* suffix_array(char* input_string, int*** c)
+int* suffix_array(const char* input_string, int*** c)
 {
     int n = strlen(input_string);
     n++; // I will use \0 as string terminator 
