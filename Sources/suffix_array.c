@@ -20,12 +20,16 @@ int max(int a, int b)
 //Technically, this algorithm sorts cyclic shifts of a string, but it can be easily used to compute suffix array, just by appending a terminator character,
 //which is less than any other character in string, to the end of string 
 
+//USAGE: Function returns a pointer to a suffix array built from input_string, and stores intermediate equivalence classes in the address pointed by c
+
+//Example is shown in suffix_array_example.c file
+
 int* suffix_array(char* input_string, int*** c)
 {
     int n = strlen(input_string);
     n++; // I will use \0 as string terminator 
-    int lg = __builtin_clz(1) - __builtin_clz(n);
-    if (__builtin_popcount(n) != 1) lg++; //lg should be equal ceil(log2(n))
+    int lg = __builtin_clz(1) - __builtin_clz(n); //floor(log2(n)) = ("1" trailing zeros) - ("n" trailing zeros)
+    if (__builtin_popcount(n) != 1) lg++; //lg should be equal ceil(log2(n)), so if n is not a power of two, then increment
     *c = (int**) malloc((lg + 1) * sizeof(int*));
     for (int i = 0; i <= lg; i++)
     {
@@ -37,6 +41,8 @@ int* suffix_array(char* input_string, int*** c)
     int* cn = (int *) malloc(n * sizeof(int));
     int cnt_size = max(n, ALPHABET);
     int* cnt = (int *) calloc(cnt_size, sizeof(int));
+    //This algorithm performes a counting sort of cyclic shifts whose length is a power of two
+    //That approach to a suffix array is described for example here https://cp-algorithms.com/string/suffix-array.html
     for (int i = 0; i < n; i++)
     {
         cnt[input_string[i]]++;
@@ -45,7 +51,7 @@ int* suffix_array(char* input_string, int*** c)
     {
         cnt[i] += cnt[i-1];
     }
-    for (int i = 0; i < n; i++)
+    for (int i = n-1; i >= 0; i--)
     {
         p[--cnt[input_string[i]]] = i;
     }
@@ -87,7 +93,7 @@ int* suffix_array(char* input_string, int*** c)
         {
             int idx1 = p[i] + (1 << h);
             if (idx1 >= n) idx1 -= n;
-            int idx2 = p[i] + (1 << h) - 1;
+            int idx2 = p[i-1] + (1 << h);
             if (idx2 >= n) idx2 -= n;
             if ((*c)[h][p[i]] != (*c)[h][p[i-1]] || (*c)[h][idx1] != (*c)[h][idx2])
             {
@@ -98,11 +104,21 @@ int* suffix_array(char* input_string, int*** c)
         int* tmp = cn;
         cn = (*c)[h+1];
         (*c)[h+1] = tmp;
+        for (int i = 0; i < n; i++)
+        {
+            //since the suffix consisting only of terminator sign wil belong to a class with index 0, and every other suffix will belong to a class
+            //with higher index, the "interesting" equivalence classes with be indexed from 1, not from 0, so we have to offset them by -1
+            (*c)[h][i]--; 
+        }
     }
     int* ret = malloc((n-1) * sizeof(int));
     for (int i = 1; i < n; i++)
     {
         ret[i-1] = p[i];
+    }
+    for (int i = 0; i < n; i++)
+    {
+        (*c)[lg][i]--; 
     }
     free(cnt);
     free(p);
