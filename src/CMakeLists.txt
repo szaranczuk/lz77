@@ -5,3 +5,7 @@ target_link_libraries(suffix_array_example PUBLIC suffix_array)
 
 add_library(list STATIC list/array_list.c)
 target_include_directories(list PUBLIC "${PROJECT_SOURCE_DIR}/include/")
+
+add_library(lcp_array STATIC lcp_array/lcp_array.c)
+target_include_directories(lcp_array PUBLIC "${PROJECT_SOURCE_DIR}/include/")
+target_link_libraries(lcp_array PUBLIC list)
