@@ -27,3 +27,17 @@ add_test(NAME "Suffix Array auto n=1000 seed=4390" COMMAND $<TARGET_FILE:suffix_
 add_test(NAME "Suffix Array auto n=1000 seed=490" COMMAND $<TARGET_FILE:suffix_array_test_auto> 490 1000)
 add_test(NAME "Suffix Array auto n=1000 seed=800" COMMAND $<TARGET_FILE:suffix_array_test_auto> 800 1000)
 add_test(NAME "Suffix Array auto n=999 seed=799" COMMAND $<TARGET_FILE:suffix_array_test_auto> 799 999)
+
+add_executable(array_list_test_auto array_list_test_auto.cpp)
+target_include_directories(array_list_test_auto PUBLIC "${PROJECT_SOURCE_DIR}/include/")
+target_link_libraries(array_list_test_auto PUBLIC list)
+
+add_test(NAME "Array List seed=1 q=2 max_size=2" COMMAND $<TARGET_FILE:array_list_test_auto> 1 2 2)
+add_test(NAME "Array List seed=5 q=2 max_size=2" COMMAND $<TARGET_FILE:array_list_test_auto> 5 2 2)
+add_test(NAME "Array List seed=7 q=2 max_size=2" COMMAND $<TARGET_FILE:array_list_test_auto> 7 2 2)
+add_test(NAME "Array List seed=2 q=10 max_size=100" COMMAND $<TARGET_FILE:array_list_test_auto> 2 10 100)
+add_test(NAME "Array List seed=90 q=10 max_size=100" COMMAND $<TARGET_FILE:array_list_test_auto> 90 10 100)
+add_test(NAME "Array List seed=213 q=10 max_size=100" COMMAND $<TARGET_FILE:array_list_test_auto> 213 10 100)
+add_test(NAME "Array List seed=30 q=1000 max_size=5000" COMMAND $<TARGET_FILE:array_list_test_auto> 30 1000 5000)
+add_test(NAME "Array List seed=50 q=1000 max_size=5000" COMMAND $<TARGET_FILE:array_list_test_auto> 50 1000 5000)
+add_test(NAME "Array List seed=70 q=1000 max_size=5000" COMMAND $<TARGET_FILE:array_list_test_auto> 70 1000 5000)
