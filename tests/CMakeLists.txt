@@ -1,0 +1,13 @@
+add_executable(suffix_array_test_manual suffix_array_test_manual.c)
+target_include_directories(suffix_array_test_manual PUBLIC "${PROJECT_SOURCE_DIR}/include/")
+target_link_libraries(suffix_array_test_manual PUBLIC suffix_array)
+
+
+add_test(NAME "Suffix Array \"banana\"" COMMAND $<TARGET_FILE:suffix_array_test_manual> banana 5 3 1 0 4 2)
+add_test(NAME "Suffix Array \"abaa\"" COMMAND $<TARGET_FILE:suffix_array_test_manual> abaa 3 2 0 1)
+add_test(NAME "Suffix Array \"aaaa\"" COMMAND $<TARGET_FILE:suffix_array_test_manual> aaaa 3 2 1 0)
+add_test(NAME "Suffix Array \"lOrEm iPsUm dOlor Sit\"" COMMAND $<TARGET_FILE:suffix_array_test_manual> "lOrEm iPsUm dOlor Sit" 17 11 5 3 13 1 7 18 9 12 6 19 0 14 10 4 15 16 2 8 20)
+
+add_executable(suffix_array_test_auto suffix_array_test_auto.cpp)
+target_include_directories(suffix_array_test_auto PUBLIC "${PROJECT_SOURCE_DIR}/include/")
+target_link_libraries(suffix_array_test_auto PUBLIC suffix_array)
