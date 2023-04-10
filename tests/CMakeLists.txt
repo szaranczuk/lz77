@@ -44,7 +44,7 @@ add_test(NAME "Array List seed=70 q=1000 max_size=5000" COMMAND $<TARGET_FILE:ar
 
 add_executable(lcp_array_test_auto lcp_array_test_auto.cpp)
 target_include_directories(lcp_array_test_auto PUBLIC "${PROJECT_SOURCE_DIR}/include/")
-target_link_libraries(lcp_array_test_auto PUBLIC suffix_array lcp_array)
+target_link_libraries(lcp_array_test_auto PUBLIC suffix_array)
 
 add_test(NAME "LCP Array seed=1 n=3" COMMAND $<TARGET_FILE:lcp_array_test_auto> 1 3)
 add_test(NAME "LCP Array seed=2 n=3" COMMAND $<TARGET_FILE:lcp_array_test_auto> 2 3)

@@ -1,5 +1,5 @@
 #define __EXTERN
-#include <lcp_array.h>
+#include <suffix_array.h>
 #include <vector>
 #include <random>
 #include <algorithm>

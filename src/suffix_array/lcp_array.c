@@ -8,7 +8,7 @@
 
 #include <stdlib.h>
 #include <list.h>
-#include <lcp_array.h>
+#include <suffix_array.h>
 
 int* lcp_array(int** c, int* p, int n)
 {
