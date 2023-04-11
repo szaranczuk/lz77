@@ -71,6 +71,10 @@ target_include_directories(lpf_array_test_manual PUBLIC "${PROJECT_SOURCE_DIR}/i
 target_link_libraries(lpf_array_test_manual PUBLIC suffix_array list)
 
 add_test(NAME "LPF Array Manual \"aabaaabbaaabba\"" COMMAND $<TARGET_FILE:lpf_array_test_manual> "aabaaabbaaabba")
+add_test(NAME "LPF Array Manual \"aaaaaaaaaaaaaaaa\"" COMMAND $<TARGET_FILE:lpf_array_test_manual> "aaaaaaaaaaaaaaaa")
+add_test(NAME "LPF Array Manual \"lOrEM iPSUm dOloR sIt\"" COMMAND $<TARGET_FILE:lpf_array_test_manual> "lOrEM iPSUm dOloR sIt")
+add_test(NAME "LPF Array Manual \"to jest losowy tekst pisany w jezyku polskim ktory ma na celu przetestowac popwanosc liczenia tablicy lpf\"" COMMAND $<TARGET_FILE:lpf_array_test_manual> "to jest losowy tekst pisany w jezyku polskim ktory ma na celu przetestowac popwanosc liczenia tablicy lpf")
+add_test(NAME "LPF Array Manual \"aabaabaabaabaabaabaabaabaab\"" COMMAND $<TARGET_FILE:lpf_array_test_manual> "aabaabaabaabaabaabaabaabaab")
 
 add_executable(lpf_array_test_auto lpf_array_test_auto.cpp)
 target_include_directories(lpf_array_test_auto PUBLIC "${PROJECT_SOURCE_DIR}/include/")

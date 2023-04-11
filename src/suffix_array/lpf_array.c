@@ -26,10 +26,6 @@ void compute_lpf_array(array_list *lcp_list, int* sa, int *reverse_sa, const cha
 	int* lpf_come_from = *lpf_come_from_out;
 	for (int i = n - 1; i >= 0; i--)
 	{
-		if (i == 337)
-		{
-			int dupa = 5+5;
-		}
 		int sa_idx = reverse_sa[i];
 		if (sa_idx == 0)
 		{
