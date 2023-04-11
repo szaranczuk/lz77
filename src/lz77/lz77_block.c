@@ -15,6 +15,7 @@ int n;
 void initialize_block(const char* _text)
 {
     n = strlen(_text);
+    text = malloc(sizeof(char) * (n + 1));
     strcpy(text, _text);
     int** c;
     sa = suffix_array(text, &c);
