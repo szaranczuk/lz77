@@ -10,12 +10,7 @@
 #include <stdlib.h>
 #include <list.h>
 #include <string.h>
-
-int min(int a, int b)
-{
-	if (a < b) return a;
-	return b;
-};
+#include <utils.h>
 
 void compute_lpf_array(array_list *lcp_list, int* sa, int *reverse_sa, const char *text, int **lpf_out, int **lpf_come_from_out)
 {

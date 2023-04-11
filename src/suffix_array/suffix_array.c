@@ -10,12 +10,8 @@
 #include <string.h>
 #include <suffix_array.h>
 #include <stdlib.h>
+#include <utils.h>
 
-int max(int a, int b)
-{
-    if (a > b) return a;
-    return b;
-}
 
 //Technically, this algorithm sorts cyclic shifts of a string, but it can be easily used to compute suffix array, just by appending a terminator character,
 //which is less than any other character in string, to the end of string 
