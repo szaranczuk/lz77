@@ -3,6 +3,7 @@
 #include <list.h>
 #include <suffix_array.h>
 #include <utils.h>
+#include <string.h>
 
 
 int *sa, *reverse_sa, *lcparr, *lpf, *lpf_come_from;
@@ -38,7 +39,7 @@ lz77_entry* compute_block(const char* _text, int* no_entries)
     int it = 0;
     while (it < n)
     {
-        (*no_entries)++
+        (*no_entries)++;
         it += lpf[it] + 1;
     }
     lz77_entry* ret = (lz77_entry*) malloc((*no_entries) * sizeof(lz77_entry));
