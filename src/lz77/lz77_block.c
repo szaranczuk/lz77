@@ -48,17 +48,27 @@ lz77_entry* compute_block(const char* _text, int* no_entries)
     int idx = 0;
     while (it < n)
     {
-        ret[idx].l = lpf_come_from[it];
-        ret[idx].r = lpf_come_from[it] + lpf[it];
-        it += lpf[it] + 1;
-        if (it < n)
+        if (lpf[it] == 0)
         {
+            ret[idx].l = -1;
+            ret[idx].r = -1;
             ret[idx].c = text[it];
         }
         else
         {
-            ret[idx].c = -1;
+            ret[idx].l = lpf_come_from[it];
+            ret[idx].r = lpf_come_from[it] + lpf[it];
+            it += lpf[it];
+            if (it < n)
+            {
+                ret[idx].c = text[it];
+            }
+            else
+            {
+                ret[idx].c = -1;
+            }
         }
+        it++;
         idx++;
     }
     cleanup_block();

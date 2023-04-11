@@ -27,7 +27,7 @@ void compute_lpf_array(array_list *lcp_list, int* sa, int *reverse_sa, const cha
 			int match_idx = lcp_list->head;
 			array_list_node match = lcp_list->list[match_idx];
 			lpf[i] = match.val;
-			lpf_come_from[i] = reverse_sa[match_idx+1];
+			lpf_come_from[i] = sa[match_idx+1];
 			lcp_list->list[match_idx].val = 0;
 		}
 		else
@@ -39,12 +39,12 @@ void compute_lpf_array(array_list *lcp_list, int* sa, int *reverse_sa, const cha
 			if (next_val > prev_val)
 			{
 				lpf[i] = next_val;
-				lpf_come_from[i] = reverse_sa[next+1];
+				lpf_come_from[i] = sa[next+1];
 			}
 			else
 			{
 				lpf[i] = prev_val;
-				lpf_come_from[i] = reverse_sa[prev+1];
+				lpf_come_from[i] = sa[prev+1];
 			}
 			if (next != -1)
 			{
