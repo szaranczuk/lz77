@@ -10,6 +10,8 @@ typedef struct lz77_entry
 	char c;
 } lz77_entry;
 
-lz77_entry compute_entry(int pos);
+void initialize_block(const char* _text);
+lz77_entry* compute_block(const char* _text, int* no_entries);
+void cleanup_block();
 
 #endif
