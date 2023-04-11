@@ -1,5 +1,5 @@
 /**********************************************************************************
- *     Description: Algorithm for computing suffix LCP array of Suffix Array      *
+ *         Description: Algorithm for computing LCP array of Suffix Array         *
  *                            Time complexity: O(nlogn)                           *
  *                           Memory complexity: O(nlogn)                          *
  *                             Author: Igor Hanczaruk                             *
@@ -8,7 +8,7 @@
 
 #include <stdlib.h>
 #include <list.h>
-#include <lcp_array.h>
+#include <suffix_array.h>
 
 int* lcp_array(int** c, int* p, int n)
 {
