@@ -6,7 +6,7 @@
 #include <string.h>
 
 
-int *sa, *reverse_sa, *lcparr;
+int *sa, *reverse_sa, *lcparr, *lpf, *lpf_come_from;
 array_list lcp_list;
 char* text;
 int pos;
@@ -71,8 +71,7 @@ void cleanup_block()
     free(reverse_sa);
     free(lcparr);
     free(text);
-}
-
-lz77_entry compute_next_entry()
-{
+    free(lpf);
+    free(lpf_come_from);
+    cleanup_array_list(&lcp_list);
 }
