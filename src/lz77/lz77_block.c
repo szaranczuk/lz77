@@ -5,9 +5,10 @@
 #include <utils.h>
 
 
-int *sa, *reverse_sa, *lcparr, *lpf, *lpf_come_from;
+int *sa, *reverse_sa, *lcparr;
 array_list lcp_list;
 char* text;
+int pos;
 int n;
 
 void initialize_block(const char* _text)
@@ -28,39 +29,7 @@ void initialize_block(const char* _text)
     {
         array_list_push_back(&lcp_list, lcparr[i]);
     }
-    compute_lpf_array(&lcp_list, sa, reverse_sa, text, &lpf, &lpf_come_from);
-}
-
-lz77_entry* compute_block(const char* _text, int* no_entries)
-{
-    initialize_block(_text);
-    *no_entries = 0;
-    int it = 0;
-    while (it < n)
-    {
-        (*no_entries)++
-        it += lpf[it] + 1;
-    }
-    lz77_entry* ret = (lz77_entry*) malloc((*no_entries) * sizeof(lz77_entry));
-    it = 0;
-    int idx = 0;
-    while (it < n)
-    {
-        ret[idx].l = lpf_come_from[it];
-        ret[idx].r = lpf_come_from[it] + lpf[it];
-        it += lpf[it] + 1;
-        if (it < n)
-        {
-            ret[idx].c = text[it];
-        }
-        else
-        {
-            ret[idx].c = -1;
-        }
-        idx++;
-    }
-    cleanup_block();
-    return ret;
+    pos = n - 1;
 }
 
 void cleanup_block()
@@ -69,7 +38,8 @@ void cleanup_block()
     free(reverse_sa);
     free(lcparr);
     free(text);
-    free(lpf);
-    free(lpf_come_from);
-    cleanup_array_list(&lcp_list);
+}
+
+lz77_entry compute_next_entry()
+{
 }
