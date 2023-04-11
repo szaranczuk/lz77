@@ -2,12 +2,8 @@
 #include <lz77.h>
 #include <list.h>
 #include <suffix_array.h>
+#include <utils.h>
 
-int min(int a, int b)
-{
-    if (a < b) return a;
-    return b;
-}
 
 int *sa, *reverse_sa, *lcparr;
 array_list lcp_list;
