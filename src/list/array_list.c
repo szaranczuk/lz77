@@ -1,12 +1,13 @@
 #include <list.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <assert.h>
 
 array_list initialize_array_list(size_t max_size)
 {
 	array_list ret;
 	ret.max_size = max_size;
-	ret.list = malloc(max_size * sizeof(array_list_node*));
+	ret.list = malloc(max_size * sizeof(array_list_node));
 	ret.head = -1;
 	ret.tail = -1;
 	ret.freeidx = 0;
@@ -15,6 +16,7 @@ array_list initialize_array_list(size_t max_size)
 
 int array_list_push_back(array_list* list, int val)
 {
+	assert(list->freeidx < list->max_size);
 	list->list[list->freeidx].next = -1;
 	list->list[list->freeidx].prev = list->tail;
 	list->list[list->freeidx].val = val;
@@ -32,6 +34,7 @@ int array_list_push_back(array_list* list, int val)
 
 int array_list_push_front(array_list* list, int val)
 {
+	assert(list->freeidx < list->max_size);
 	list->list[list->freeidx].prev = -1;
 	list->list[list->freeidx].next = list->head;
 	list->list[list->freeidx].val = val;

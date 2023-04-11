@@ -46,44 +46,4 @@ void cleanup_block()
 
 lz77_entry compute_next_entry()
 {
-    int sa_idx = sa[pos];
-    lz77_entry ret = {-1, -1, text[pos]};
-    if (sa_idx == 0)
-    {
-        int match_idx = lcp_list.head;
-        array_list_node match = lcp_list.list[match_idx];
-        if (match.val != 0)
-        {
-            ret.l = reverse_sa[match_idx+1];
-            ret.r = ret.l + match.val;
-            ret.c = ret.r == n ? -1 : text[ret.r + 1];
-        }
-    }
-    else
-    {
-        int next = lcp_list.list[sa_idx-1].next;
-        if (next != -1)
-        {
-            array_list_node match = lcp_list.list[next];
-            if (match.val > ret.r - ret.l)
-            {
-                ret.l = reverse_sa[next+1];
-                ret.r = ret.l + match.val;
-                ret.c = ret.r == n ? -1 : text[ret.r + 1];
-            }
-        }
-        int prev = lcp_list.list[sa_idx-1].prev;
-        array_list_node match = lcp_list.list[prev];
-        if (match.val > ret.r - ret.l)
-        {
-            ret.l = reverse_sa[prev+1];
-            ret.r = ret.l + match.val;
-            ret.c = ret.r == n ? -1 : text[ret.r + 1];
-        }
-        if (next != -1)
-        {
-            lcp_list.list[next].val = min(lcp_list.list[next].val, lcp_list.list[sa_idx-1].val);
-            array_list_erase(&lcp_list, sa_idx-1);
-        }
-    }
 }

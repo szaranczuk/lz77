@@ -1,4 +1,4 @@
-add_library(suffix_array STATIC suffix_array/suffix_array.c suffix_array/lcp_array.c)
+add_library(suffix_array STATIC suffix_array/suffix_array.c suffix_array/lcp_array.c suffix_array/lpf_array.c)
 add_executable(suffix_array_example suffix_array/suffix_array_example.c)
 target_include_directories(suffix_array PUBLIC "${PROJECT_SOURCE_DIR}/include/")
 target_link_libraries(suffix_array_example PUBLIC suffix_array)
