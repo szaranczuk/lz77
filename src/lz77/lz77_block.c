@@ -8,14 +8,14 @@
 
 int *sa, *reverse_sa, *lcparr, *lpf, *lpf_come_from;
 array_list lcp_list;
-char* text;
+unsigned char* text;
 int pos;
 int n;
 
-void initialize_block(const char* _text)
+void initialize_block(const unsigned char* _text)
 {
     n = strlen(_text);
-    text = malloc(sizeof(char) * (n + 1));
+    text = malloc(sizeof(unsigned char) * (n + 1));
     strcpy(text, _text);
     int** c;
     sa = suffix_array(text, &c);
@@ -34,7 +34,7 @@ void initialize_block(const char* _text)
     compute_lpf_array(&lcp_list, sa, reverse_sa, text, &lpf, &lpf_come_from);
 }
 
-lz77_entry* compute_block(const char* _text, int* no_entries)
+lz77_entry* compute_block(const unsigned char* _text, int* no_entries)
 {
     initialize_block(_text);
     *no_entries = 0;

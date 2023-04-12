@@ -5,20 +5,20 @@
 #include <time.h>
 #include <errno.h>
 
-#define BLOCK_SIZE  (1 << 20)
+#define BLOCK_SIZE  (1 << 16)
 #define FILE_TERMINATOR 1000075u
 #define BLOCK_TERMINATOR 1000099u
 #define START_OF_FILE 7999999u
 #define ENTRY_SIZE 7
-char buff[BLOCK_SIZE];
+unsigned char buff[BLOCK_SIZE + 1];
 int entry_counter = 0;
 
 void writeInt(const unsigned int x, FILE* pf)
 {
-	const char *xp = &x;
+	const unsigned char *xp = &x;
 	for (int i = 0; i < 3; i++)
 	{
-		fprintf(pf, "%c", xp[i]);
+		fputc(xp[i], pf);
 	}
 }
 
@@ -31,14 +31,14 @@ void read_block(FILE* out)
 		entry_counter++;
 		writeInt((unsigned int) lz77[i].l, out);
 		writeInt((unsigned int) lz77[i].r, out);
-		fprintf(out, "%c", lz77[i].c);
+		fputc(lz77[i].c, out);
 	}
 }
 
 int main(int argc, char** argv)
 {
-	FILE* input_pf = fopen(argv[1], "r");
-	FILE* output_pf = fopen(argv[2], "w");
+	FILE* input_pf = fopen(argv[1], "rb");
+	FILE* output_pf = fopen(argv[2], "wb");
 	if (input_pf == NULL || output_pf == NULL)
 	{
 		perror("Error opening file");
@@ -51,14 +51,17 @@ int main(int argc, char** argv)
 	writeInt(BLOCK_SIZE, output_pf);
 	int bytes_readed;
 	int no_blocks = 0;
-	while ((bytes_readed = fread(buff, sizeof(char), BLOCK_SIZE, input_pf)) == BLOCK_SIZE)
+	while ((bytes_readed = fread(buff, sizeof(unsigned char), BLOCK_SIZE, input_pf)) == BLOCK_SIZE)
 	{
+		//fprintf(stderr, "bytes readed %d\n", bytes_readed);
 		read_block(output_pf);
 		writeInt(BLOCK_TERMINATOR, output_pf);
 		no_blocks++;
 	}
 	if (bytes_readed != 0)
 	{
+		//fprintf(stderr, "bytes readed %d\n", bytes_readed);
+		buff[bytes_readed] = 0;
 		read_block(output_pf);
 		writeInt(BLOCK_TERMINATOR, output_pf);
 		no_blocks++;

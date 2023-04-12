@@ -14,7 +14,7 @@ char* buff;
 int readInt(FILE* fp)
 {
     unsigned int x = 0;
-    char* xp = (char* )&x;
+    unsigned char* xp = (unsigned char* )&x;
     for (int i = 0; i < 3; i++)
     {
         xp[i] = fgetc(fp);
@@ -24,8 +24,8 @@ int readInt(FILE* fp)
 
 int main(int argc, char** argv)
 {
-    FILE* input_pf = fopen(argv[1], "r");
-    FILE* output_pf = fopen(argv[2], "w");
+    FILE* input_pf = fopen(argv[1], "rb");
+    FILE* output_pf = fopen(argv[2], "wb");
     if (input_pf == NULL || output_pf == NULL)
     {
         perror("Error opening file");
@@ -41,6 +41,7 @@ int main(int argc, char** argv)
     file_terminator = readInt(input_pf);
     block_size = readInt(input_pf);
     buff = malloc(sizeof(char) * (block_size + 1));
+    fprintf(stderr, "Block terminator: %d\nFile terminator: %d\nBlock size: %d\n", block_terminator, file_terminator, block_size);
     buff[block_size] = '\0';
     #ifdef __DEBUG
     fprintf(output_pf, "%d\n%d\n%d\n", greeting_message, block_terminator, file_terminator);
@@ -53,13 +54,14 @@ int main(int argc, char** argv)
     {
         if (l == block_terminator)
         {
-            no_blocks++;
-            pos = 0;
             #ifdef __DEBUG
             fprintf(output_pf, "%d\n", block_terminator);
             #else
-            fprintf(output_pf, "%s", buff);
+            fwrite(buff, sizeof(unsigned char), pos, output_pf);
+            //fprintf(stderr, "block ended at %d\n", pos);
             #endif
+            no_blocks++;
+            pos = 0;
             continue;
         }
         r = readInt(input_pf);
