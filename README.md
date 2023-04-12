@@ -21,8 +21,7 @@ executables lz77_compress, and lz77_decompress are in buid/bin
 
 ### Limitations
 
-For now it is working only for text files encoded in ASCII which don't contain a null character ('\0' - the char with code 0), or, equivalently, any
-sequence of bytes where every byte value encoded in U2 is greater than 0.
+Algorithm may not work correctly if there is any null byte in input file
 
 ### TODO:
  - Generalise this to any sequence of bytes

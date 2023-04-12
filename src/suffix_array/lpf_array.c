@@ -12,7 +12,7 @@
 #include <string.h>
 #include <utils.h>
 
-void compute_lpf_array(array_list *lcp_list, int* sa, int *reverse_sa, const char *text, int **lpf_out, int **lpf_come_from_out)
+void compute_lpf_array(array_list *lcp_list, int* sa, int *reverse_sa, const unsigned char *text, int **lpf_out, int **lpf_come_from_out)
 {
 	int n = strlen(text);
 	(*lpf_out) = (int *)malloc(n * sizeof(int));
