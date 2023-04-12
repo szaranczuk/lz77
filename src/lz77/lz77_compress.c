@@ -6,6 +6,8 @@
 
 #define BLOCK_SIZE  (1 << 20)
 #define FILE_TERMINATOR 1467298742
+#define BLOCK_TERMINATOR 294857104
+#define START_OF_FILE 424910213
 char buff[BLOCK_SIZE];
 
 void writeInt(const int x, FILE* pf)
@@ -38,14 +40,20 @@ int main(int argc, char** argv)
 		perror("Error opening file");
 		exit(EXIT_FAILURE);
 	}
+	writeInt(START_OF_FILE, output_pf);
+	writeInt(BLOCK_TERMINATOR, output_pf);
+	writeInt(FILE_TERMINATOR, output_pf);
+	writeInt(BLOCK_SIZE, output_pf);
 	int bytes_readed;
 	while ((bytes_readed = fread(buff, sizeof(char), BLOCK_SIZE, input_pf)) == BLOCK_SIZE)
 	{
 		read_block(output_pf);
+		writeInt(BLOCK_TERMINATOR, output_pf);
 	}
 	if (bytes_readed != 0)
 	{
 		read_block(output_pf);
+		writeInt(BLOCK_TERMINATOR, output_pf);
 	}
 	writeInt(FILE_TERMINATOR, output_pf);
 	fclose(input_pf);
