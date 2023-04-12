@@ -13,7 +13,7 @@ $ cd build
 $ cmake ..
 $ make
 ```
-executables lz77_compress, and lz77_decompress are in buid/src
+executables lz77_compress, and lz77_decompress are in buid/bin
 
 ### Usage
  - Type `./lz77_compress input_file output_file` to compress input_file, and save its compressed lz77 representation in output_file
