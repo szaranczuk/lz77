@@ -9,10 +9,10 @@ char buff[BLOCK_SIZE];
 
 void writeInt(const int x, FILE* pf)
 {
-	const int *xp = &x;
+	const char *xp = &x;
 	for (int i = 0; i < sizeof(int); i++)
 	{
-		fprintf(pf, "%c", (unsigned char) xp[i]);
+		fprintf(pf, "%c", xp[i]);
 	}
 }
 
@@ -46,7 +46,6 @@ int main(int argc, char** argv)
 	{
 		read_block(output_pf);
 	}
-	fprintf(output_pf, "\n");
 	fclose(input_pf);
 	fclose(output_pf);
 	exit(EXIT_SUCCESS);

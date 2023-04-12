@@ -18,3 +18,7 @@ target_link_libraries(lz77_block PUBLIC suffix_array list utils)
 add_executable(lz77_compress lz77/lz77_compress.c)
 target_include_directories(lz77_compress PUBLIC "${PROJECT_SOURCE_DIR}/include/")
 target_link_libraries(lz77_compress PUBLIC lz77_block)
+
+add_executable(lz77_decompose lz77/lz77_decompose.c)
+target_include_directories(lz77_decompose PUBLIC "${PROJECT_SOURCE_DIR}/include/")
+target_link_libraries(lz77_decompose PUBLIC lz77_block)
