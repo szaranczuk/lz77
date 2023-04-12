@@ -1,6 +1,6 @@
 #ifndef __LZ77_H
 #define __LZ77_H
-
+#define NOT_FOUND 3700009
 #include <list.h>
 
 typedef struct lz77_entry

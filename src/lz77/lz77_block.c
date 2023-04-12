@@ -15,6 +15,7 @@ int n;
 void initialize_block(const char* _text)
 {
     n = strlen(_text);
+    text = malloc(sizeof(char) * (n + 1));
     strcpy(text, _text);
     int** c;
     sa = suffix_array(text, &c);
@@ -50,8 +51,8 @@ lz77_entry* compute_block(const char* _text, int* no_entries)
     {
         if (lpf[it] == 0)
         {
-            ret[idx].l = -1;
-            ret[idx].r = -1;
+            ret[idx].l = NOT_FOUND;
+            ret[idx].r = NOT_FOUND;
             ret[idx].c = text[it];
         }
         else

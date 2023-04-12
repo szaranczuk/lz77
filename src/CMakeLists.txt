@@ -14,3 +14,14 @@ target_link_libraries(list PUBLIC utils)
 add_library(lz77_block STATIC lz77/lz77_block.c)
 target_include_directories(lz77_block PUBLIC "${PROJECT_SOURCE_DIR}/include/")
 target_link_libraries(lz77_block PUBLIC suffix_array list utils)
+
+add_executable(lz77_compress lz77/lz77_compress.c)
+target_include_directories(lz77_compress PUBLIC "${PROJECT_SOURCE_DIR}/include/")
+target_link_libraries(lz77_compress PUBLIC lz77_block)
+
+
+add_executable(lz77_decompress lz77/lz77_decompress.c)
+target_include_directories(lz77_decompress PUBLIC "${PROJECT_SOURCE_DIR}/include/")
+target_link_libraries(lz77_decompress PUBLIC lz77_block)
+
+set_target_properties(lz77_compress lz77_decompress PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")

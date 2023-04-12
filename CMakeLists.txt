@@ -4,6 +4,7 @@ project(LZ77 VERSION 1.0 LANGUAGES C CXX)
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 11)
+#set(CMAKE_C_FLAGS "-O3")
 
 add_subdirectory(src)
 
