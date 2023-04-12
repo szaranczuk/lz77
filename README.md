@@ -1,5 +1,7 @@
 # LZ77 in O(nlogn) with suffix array ANSI C implementation
 
+![Usage example](example.gif)
+
 ### build deps:
  - `Any C compiler with support of C99 standard`
  - `CMake at version minimum 3.2`
