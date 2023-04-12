@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <time.h>
 #include <errno.h>
 
 #define BLOCK_SIZE  (1 << 20)
@@ -43,6 +44,7 @@ int main(int argc, char** argv)
 		perror("Error opening file");
 		exit(EXIT_FAILURE);
 	}
+	clock_t start_time = clock();
 	writeInt(START_OF_FILE, output_pf);
 	writeInt(BLOCK_TERMINATOR, output_pf);
 	writeInt(FILE_TERMINATOR, output_pf);
@@ -64,6 +66,7 @@ int main(int argc, char** argv)
 	writeInt(FILE_TERMINATOR, output_pf);
 	fclose(input_pf);
 	fclose(output_pf);
+	clock_t end_time = clock();
     printf("Successfully compressed %d block(s) of data from %s\n", no_blocks, argv[1]);
 	float size_before = (no_blocks - 1) * BLOCK_SIZE;
 	if (bytes_readed == 0) size_before += BLOCK_SIZE;
@@ -71,6 +74,7 @@ int main(int argc, char** argv)
 	size_before /= 1024.0;
 	float size_after = entry_counter * ENTRY_SIZE;
 	size_after /= 1024.0;
-	printf("Size before compression: %0.2f [KiB]\nSize after compression: %.2f [KiB]\n", size_before, size_after);
+	float time_elapsed = (end_time - start_time)/((float) CLOCKS_PER_SEC);
+	printf("Size before compression: %0.2f [KiB]\nSize after compression: %.2f [KiB]\nTime elapsed: %.3f [s]\n", size_before, size_after, time_elapsed);
 	exit(EXIT_SUCCESS);
 }
