@@ -5,17 +5,17 @@
 #include <errno.h>
 
 #define BLOCK_SIZE  (1 << 20)
-#define FILE_TERMINATOR 1467298742
-#define BLOCK_TERMINATOR 294857104
-#define START_OF_FILE 424910213
-#define ENTRY_SIZE 9
+#define FILE_TERMINATOR 1000075u
+#define BLOCK_TERMINATOR 1000099u
+#define START_OF_FILE 7999999u
+#define ENTRY_SIZE 7
 char buff[BLOCK_SIZE];
 int entry_counter = 0;
 
-void writeInt(const int x, FILE* pf)
+void writeInt(const unsigned int x, FILE* pf)
 {
 	const char *xp = &x;
-	for (int i = 0; i < sizeof(int); i++)
+	for (int i = 0; i < 3; i++)
 	{
 		fprintf(pf, "%c", xp[i]);
 	}
@@ -28,8 +28,8 @@ void read_block(FILE* out)
 	for (int i = 0; i < n; i++)
 	{
 		entry_counter++;
-		writeInt(lz77[i].l, out);
-		writeInt(lz77[i].r, out);
+		writeInt((unsigned int) lz77[i].l, out);
+		writeInt((unsigned int) lz77[i].r, out);
 		fprintf(out, "%c", lz77[i].c);
 	}
 }

@@ -5,7 +5,7 @@
 #include <errno.h>
 #include <stdbool.h>
 
-#define START_OF_FILE 424910213
+#define START_OF_FILE 7999999u
 //#define __DEBUG
 
 int block_terminator, file_terminator, block_size;
@@ -13,9 +13,9 @@ char* buff;
 
 int readInt(FILE* fp)
 {
-    int x;
+    unsigned int x = 0;
     char* xp = (char* )&x;
-    for (int i = 0; i < sizeof(int); i++)
+    for (int i = 0; i < 3; i++)
     {
         xp[i] = fgetc(fp);
     }
@@ -31,7 +31,7 @@ int main(int argc, char** argv)
         perror("Error opening file");
         exit(EXIT_FAILURE);
     }
-    int greeting_message = readInt(input_pf);
+    unsigned int greeting_message = readInt(input_pf);
     if (greeting_message != START_OF_FILE)
     {
         fprintf(stderr, "%s is not a valid lz77 file\n", argv[1]);
@@ -67,17 +67,20 @@ int main(int argc, char** argv)
         #ifdef __DEBUG
         fprintf(output_pf, "%d %d %c\n", l, r, c);
         #endif
-        if (l != -1)
+        if (l != NOT_FOUND)
         {
             for (int i = l; i < r; i++)
             {
                 buff[pos++] = buff[i];
             }
         }
-        buff[pos++] = c;
+        if (c != -1)
+        {
+            buff[pos++] = c;
+        }
     }
     #ifdef __DEBUG
     fprintf(output_pf, "%d\n", file_terminator);
     #endif
-    printf("Successfully decomposed %d block(s) of data from %s\n", no_blocks, argv[1]);
+    printf("Successfully decompressed %d block(s) of data from %s\n", no_blocks, argv[1]);
 }
