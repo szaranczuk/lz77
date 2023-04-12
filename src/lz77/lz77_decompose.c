@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <errno.h>
 
+#define FILE_TERMINATOR 1467298742
 #define BLOCK_SIZE  (1 << 20)
 char buff[BLOCK_SIZE];
 
@@ -24,11 +25,15 @@ int main(int argc, char** argv)
     char *lp = &l;
     char *rp = &r;
     char c;
-    while ((lp[0] = fgetc(input_pf)) != EOF)
+    while (1)
     {
-        for (int i = 1; i < sizeof(int); i++)
+        for (int i = 0; i < sizeof(int); i++)
         {
             lp[i] = fgetc(input_pf);
+        }
+        if (l == FILE_TERMINATOR)
+        {
+            break;
         }
         for (int i = 0; i < sizeof(int); i++)
         {

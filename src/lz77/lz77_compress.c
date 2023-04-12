@@ -5,6 +5,7 @@
 #include <errno.h>
 
 #define BLOCK_SIZE  (1 << 20)
+#define FILE_TERMINATOR 1467298742
 char buff[BLOCK_SIZE];
 
 void writeInt(const int x, FILE* pf)
@@ -46,6 +47,7 @@ int main(int argc, char** argv)
 	{
 		read_block(output_pf);
 	}
+	writeInt(FILE_TERMINATOR, output_pf);
 	fclose(input_pf);
 	fclose(output_pf);
 	exit(EXIT_SUCCESS);
